@@ -1,0 +1,39 @@
+body {
+  margin: 0 auto;
+  font-family: 'Montserrat';
+  font-size: 40px;
+  color: floralwhite;
+  background-color: #91a8cf;
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+}
+
+.todo-container {
+  min-height: 25%;
+  text-align: center;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  white-space: nowrap;
+  border-radius: 15px;
+  margin: 3px;
+  padding: 5px;
+}
+
+.todo-text {
+  margin: 0;
+  overflow: scroll;
+}
+
+.todo-text-completed {
+  margin: 0;
+  overflow: scroll;
+  text-decoration: line-through;
+  opacity: 0.7; 
+}
+
