@@ -4,26 +4,24 @@ const addToLocalStorage = document.querySelector('.todos-save-to-ls')
 const deleteFromLocalStorage = document.querySelector('.todos-delete-from-ls')
 const input = document.querySelector('input')
 const todoContainer = document.querySelector('.todo-container')
-let todosToSave = []
+// let todosToSave = []
 let clickCounter = 0
+const regex = /\\|\]|\"|\[/gm
+let storedTodos = localStorage.getItem('storedTodoList')
+  ? localStorage.getItem('storedTodoList').replace(regex, '').split(',')
+  : []
 
 const onReload = () => {
-  let storedTodos = localStorage.getItem('storedTodoList').replace('[', '').replace(']', '').split(',') || []
-  storedTodos ? console.log(typeof storedTodos) : []
-  const div = document.createElement('div')
-  const btnDiv = document.createElement('div')
-  const todoText = document.createElement('div')
-  const deleteBtn = document.createElement('button')
-  const completeBtn = document.createElement('button')
-
-  div.classList.add('todo-item')
-  // btnDiv.classList.add('btn-div')
-  todoText.classList.add('todo-text')
-
-  
-  
-
   for (let todo of storedTodos) {
+    const div = document.createElement('div')
+    const btnDiv = document.createElement('div')
+    const todoText = document.createElement('div')
+    const deleteBtn = document.createElement('button')
+    const completeBtn = document.createElement('button')
+
+    div.classList.add('todo-item')
+    // btnDiv.classList.add('btn-div')
+    todoText.classList.add('todo-text')
     clickCounter++
     console.log(todo)
     todoText.innerText = todo
@@ -48,8 +46,6 @@ const onReload = () => {
     div.append(todoText)
     div.append(btnDiv)
 
-   
-
     deleteBtn.addEventListener('click', e => {
       e.target.parentElement.parentElement.remove()
     })
@@ -58,8 +54,6 @@ const onReload = () => {
       e.target.parentElement.parentElement.classList.add('todo-text-completed')
     })
   }
-
-  
 }
 onReload()
 
@@ -79,7 +73,7 @@ todoContainer.addEventListener('click', e => {
     todoText.classList.add('todo-text')
 
     todoText.innerText = input.value
-    todosToSave.push(input.value)
+    storedTodos.push(input.value)
 
     deleteBtn.innerText = 'Delete'
     completeBtn.innerText = 'Completed'
@@ -119,12 +113,12 @@ deleteAll.addEventListener('click', e => {
   allTodos.forEach(elem => {
     elem.remove()
   })
-  todosToSave = []
+  storedTodos = []
 })
 
 addToLocalStorage.addEventListener('click', e => {
   e.preventDefault()
-  localStorage.setItem('storedTodoList', JSON.stringify(todosToSave))
+  localStorage.setItem('storedTodoList', JSON.stringify(storedTodos))
 })
 
 deleteFromLocalStorage.addEventListener('click', e => {
